@@ -3,11 +3,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<c:import url="../layout/header.jsp" />
+
 <style type="text/css">
 table {
 	border: 1px solid #ccc;
@@ -25,8 +22,7 @@ td {
 }
 
 </style>
-</head>
-<body>
+
 
 <h1>게시글 목록</h1>
 <hr>
@@ -56,5 +52,4 @@ td {
 	
 </table>
 
-</body>
-</html>
+<c:import url="../layout/footer.jsp" />
