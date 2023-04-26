@@ -141,5 +141,4 @@ td {
 
 </table>
 
-
 <c:import url="../layout/footer.jsp" />

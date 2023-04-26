@@ -22,14 +22,20 @@ td {
 }
 
 </style>
+<script type="text/javascript">
+$(function() {
+	$("#goBack").on("click", function() {
+		history.go(-1);
+	})
+})
+</script>
 
 
-<h1>게시글 목록</h1>
+<h1><span id="goBack" style="cursor: pointer;">게시글 목록</span></h1>
 <hr>
 
 <div>
 
-<a href="./write"><button>글쓰기</button></a>
 
 <table style="margin: 0 auto;">
 	<tr>
@@ -54,8 +60,14 @@ td {
 	
 </table>
 
-<br><br>
+<br>
 
+<div>
+	<a href="./write" style="position:absolute ; left: 47%;"><button>글쓰기</button></a>
+</div>
+
+<br>
+<br>
 
 <c:import url="../layout/paging.jsp" />
 
