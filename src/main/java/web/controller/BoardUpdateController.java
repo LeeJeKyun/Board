@@ -21,7 +21,6 @@ public class BoardUpdateController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/update [GET]");
 		
 //		System.out.println("/board/update - doGet : " + req.getParameter("boardno"));
 //		System.out.println("/board/update - doGet : " + req.getAttribute("board"));
@@ -44,9 +43,6 @@ public class BoardUpdateController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/update [POST]");
-		
-		req.setCharacterEncoding("UTF-8");
 		
 		boardService.update(req);
 		

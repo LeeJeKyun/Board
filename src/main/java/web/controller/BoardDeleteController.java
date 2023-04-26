@@ -20,7 +20,6 @@ public class BoardDeleteController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/delete [GET]");
 		
 		Board board = boardService.getBoardno(req);
 		System.out.println("/board/delete doGet() - board : " + board);

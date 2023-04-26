@@ -21,7 +21,6 @@ public class BoardViewController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/view [GET]");
 		
 		if(req.getParameter("boardno")==null) {
 			resp.sendRedirect("/board/list");

@@ -20,7 +20,6 @@ public class BoardWriteController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/write [GET]");
 		
 		HttpSession session = req.getSession();
 		if(session.getAttribute("login") != null) {
@@ -33,9 +32,6 @@ public class BoardWriteController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/write [POST]");
-		
-		req.setCharacterEncoding("UTF-8");
 		
 		boardService.write(req);
 		

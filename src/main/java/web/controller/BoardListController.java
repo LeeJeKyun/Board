@@ -21,7 +21,6 @@ public class BoardListController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/board/list [GET]");
 		
 		if(req.getSession().getAttribute("login") == null) {
 			resp.sendRedirect("/");

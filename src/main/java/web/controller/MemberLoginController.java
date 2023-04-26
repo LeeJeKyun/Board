@@ -21,7 +21,6 @@ public class MemberLoginController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/member/login [GET]");
 		
 		HttpSession session = req.getSession();
 		
@@ -35,7 +34,6 @@ public class MemberLoginController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/member/login [POST]");
 		
 		Member loginMember = memberService.getLoginMember(req);
 		

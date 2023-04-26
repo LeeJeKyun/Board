@@ -14,8 +14,6 @@ public class MemberLogoutController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/member/logout [GET]");
-		
 		req.getSession().invalidate();
 		
 		resp.sendRedirect("/main");
