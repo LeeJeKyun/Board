@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import util.Paging;
 import web.dto.Board;
 import web.dto.BoardFile;
 
@@ -129,6 +130,25 @@ public interface BoardDao {
 	 * @return 추천수
 	 */
 	public int selectRecommendCnt(Connection conn, Board recommendBoard);
+
+
+	/**
+	 * 전체 게시글 수를 조회해오는 메소드
+	 * 
+	 * @param conn
+	 * @return
+	 */
+	public int selectCntAll(Connection conn);
+
+
+	/**
+	 * DB의 게시판 정보를 원하는 페이지 수 만큼 가져오는 메소드
+	 * 
+	 * @param conn
+	 * @param paging
+	 * @return
+	 */
+	public List<Map<String, Object>> selectAll(Connection conn, Paging paging);
 
 	
 	

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import common.JDBCTemplate;
+import util.Paging;
 import web.dao.face.BoardDao;
 import web.dto.Board;
 import web.dto.BoardFile;
@@ -385,6 +386,87 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		
 		return res;
+	}
+
+	@Override
+	public int selectCntAll(Connection conn) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM board";
+		
+		int res = 0;
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			rs=ps.executeQuery();
+			while( rs.next() ) {
+				res = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		return res;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAll(Connection conn, Paging paging) {
+
+		String sql ="";
+		sql += "SELECT * FROM (";
+		sql += " SELECT rownum rnum, S.* FROM ( SELECT";
+		sql += " boardno, title, userid, content, hit, write_date ";
+		sql += " , (SELECT COUNT(*) FROM recommend R WHERE R.boardno=B.boardno)";
+		sql += " AS recommend";
+		sql += " FROM board B";
+		sql += " ORDER BY boardno DESC ) S";
+		sql += " )Board";
+		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		Board board = null;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				Map<String, Object> map = new HashMap<>();
+				board = new Board(rs.getInt("boardno")
+								, rs.getString("title")
+								, rs.getString("userid")
+								, rs.getString("content")
+								, rs.getInt("hit")
+								, rs.getDate("write_date"));
+				int recommend = rs.getInt("recommend");
+				map.put("b", board);
+				map.put("c", recommend);
+				
+				list.add(map);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		for(Map<String,Object> map : list) {
+			System.out.println(map);
+		}
+		
+		return list;
 	}
 	
 	

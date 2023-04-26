@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import util.Paging;
 import web.dto.Board;
 import web.dto.BoardFile;
 
@@ -104,6 +105,22 @@ public interface BoardService {
 	 * @return
 	 */
 	public int recommendCnt(Board recommendBoard);
+
+	/**
+	 * 페이징 객체를 반환하는 메소드
+	 * 
+	 * @param req
+	 * @return req에있는 curPage와 DB에있는 총게시글수를 담은 페이징객체
+	 */
+	public Paging getPaging(HttpServletRequest req);
+
+	/**
+	 * Dao를 통해 받아온 데이터를 List<Map>형태로 반환
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<Map<String, Object>> getList(Paging paging);
 
 
 

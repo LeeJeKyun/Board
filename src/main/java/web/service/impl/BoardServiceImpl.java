@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import common.JDBCTemplate;
+import util.Paging;
 import web.dao.face.BoardDao;
 import web.dao.face.BoardFileDao;
 import web.dao.impl.BoardDaoImpl;
@@ -412,6 +413,29 @@ public class BoardServiceImpl implements BoardService {
 	public int recommendCnt(Board recommendBoard) {
 		
 		return boardDao.selectRecommendCnt(conn, recommendBoard);
+	}
+
+	@Override
+	public Paging getPaging(HttpServletRequest req) {
+		
+		String param = req.getParameter("curPage");
+		int curPage = 0;
+		if( param != null && !"".equals(param)) {
+			curPage = Integer.parseInt(param);
+		} else {
+			System.out.println("[WARN] BoardService - getPaging() : curPage값이 null이거나 비어있음");
+		}
+		
+		int totalCount = boardDao.selectCntAll( conn );
+		Paging paging = new Paging(totalCount, curPage, 10, 5);
+		
+		return paging;
+	}
+
+	@Override
+	public List<Map<String, Object>> getList(Paging paging) {
+		
+		return boardDao.selectAll(conn, paging);
 	}
 	
 	

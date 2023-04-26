@@ -22,9 +22,19 @@ public class Paging {
 		setCurPage(curPage);
 		makePaging();
 	}
+	
+	public Paging( int totalCount, int curPage, int listCount, int pageCount) {
+		setTotalCount(totalCount);
+		setCurPage(curPage);
+		setListCount(listCount);
+		setPageCount(pageCount);
+		
+		makePaging();
+	}
 
 	
-	public void makePaging() {
+	private void makePaging() {
+		
 		if(totalCount == 0) return;
 		if(curPage<=0) setCurPage(1);
 		if(listCount==0) setListCount(10);

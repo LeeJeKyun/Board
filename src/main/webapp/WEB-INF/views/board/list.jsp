@@ -27,12 +27,14 @@ td {
 <h1>게시글 목록</h1>
 <hr>
 
+<div>
+
 <a href="./write"><button>글쓰기</button></a>
 
-<table>
+<table style="margin: 0 auto;">
 	<tr>
 		<th>게시글 번호</th>
-		<th>제목</th>
+		<th style="width: 300px;">제목</th>
 		<th>작성자</th>
 		<th>조회수</th>
 		<th>추천수</th>
@@ -51,5 +53,10 @@ td {
 	</c:forEach>
 	
 </table>
+
+<br><br>
+
+
+<c:import url="../layout/paging.jsp" />
 
 <c:import url="../layout/footer.jsp" />

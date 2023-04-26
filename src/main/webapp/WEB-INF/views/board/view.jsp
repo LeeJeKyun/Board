@@ -16,7 +16,7 @@ $(function() {
 		, dataType: "html"		//응답 데이터 형식
 		, success: function( res ) {
 			console.log("AJAX 성공")
-// 			console.log(res);
+			console.log(res);
 			$("#result").html(res);
 			
 		}
