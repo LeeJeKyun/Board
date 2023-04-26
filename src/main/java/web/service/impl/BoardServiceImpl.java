@@ -21,10 +21,13 @@ import common.JDBCTemplate;
 import util.Paging;
 import web.dao.face.BoardDao;
 import web.dao.face.BoardFileDao;
+import web.dao.face.CommentDao;
 import web.dao.impl.BoardDaoImpl;
 import web.dao.impl.BoardFileDaoImpl;
+import web.dao.impl.CommentDaoImpl;
 import web.dto.Board;
 import web.dto.BoardFile;
+import web.dto.Comment;
 import web.service.face.BoardService;
 
 public class BoardServiceImpl implements BoardService {
@@ -32,6 +35,7 @@ public class BoardServiceImpl implements BoardService {
 	Connection conn = JDBCTemplate.getConnection();
 	BoardDao boardDao = new BoardDaoImpl();
 	BoardFileDao boardFileDao = new BoardFileDaoImpl();
+	CommentDao commentDao = new CommentDaoImpl();
 	
 	@Override
 	public List<Map<String, Object>> getList() {
@@ -436,6 +440,45 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> getList(Paging paging) {
 		
 		return boardDao.selectAll(conn, paging);
+	}
+
+	@Override
+	public List<Comment> commentList(Board board) {
+		
+		return commentDao.selectCommentByBoardNo(conn, board);
+	}
+
+	@Override
+	public Comment getComment(HttpServletRequest req) {
+		
+		Comment comment = new Comment();
+		
+		
+		
+		
+		comment.setBoardno( Integer.parseInt( req.getParameter("boardno") ) );
+		comment.setContent( req.getParameter("content") );
+		comment.setUserid( (String)req.getSession().getAttribute("userid") );
+		
+		return comment;
+	}
+
+	@Override
+	public void commentInsert(Comment insertComment) {
+		
+		insertComment.setCommentno(commentDao.selectNextCommentNo(conn));
+		
+//		System.out.println("boardService - commentInsert() comment : " + insertComment);
+		
+		int res = commentDao.insertComment(conn, insertComment);
+		if( res > 0 ) {
+			System.out.println("commentInsert - 커밋완료");
+			JDBCTemplate.commit(conn);
+		} else {
+			System.out.println("commentInsert - 롤백완료");
+			JDBCTemplate.rollback(conn);
+		}
+		
 	}
 	
 	

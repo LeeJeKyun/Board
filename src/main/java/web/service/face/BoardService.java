@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import util.Paging;
 import web.dto.Board;
 import web.dto.BoardFile;
+import web.dto.Comment;
 
 public interface BoardService {
 
@@ -121,6 +122,29 @@ public interface BoardService {
 	 * @return
 	 */
 	public List<Map<String, Object>> getList(Paging paging);
+
+	/**
+	 * 조회대상인 Board의 댓글을 List로 담아서 반환하는 메소드
+	 * 
+	 * @param board
+	 * @return 댓글List객체
+	 */
+	public List<Comment> commentList(Board board);
+
+	/**
+	 * req객체에 있는 매개변수로 comment객체 생성 반환
+	 * 
+	 * @param req
+	 * @return - comment객체 반환
+	 */
+	public Comment getComment(HttpServletRequest req);
+
+	/**
+	 * comment객체를 DB에 삽입하는 메소드
+	 * 
+	 * @param insertComment
+	 */
+	public void commentInsert(Comment insertComment);
 
 
 

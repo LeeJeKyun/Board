@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import web.dto.Board;
 import web.dto.BoardFile;
+import web.dto.Comment;
 import web.service.face.BoardService;
 import web.service.impl.BoardServiceImpl;
 
@@ -34,9 +36,12 @@ public class BoardViewController extends HttpServlet {
 		
 		boolean isRecommended = boardService.isRecommended(recBoard);
 		int recommendCnt = boardService.recommendCnt(recBoard);
+
+		List<Comment> commentList = boardService.commentList(board);
 		
-//		System.out.println("/board/view doGet() isRecommended : " + isRecommended);
+//		System.out.println("BoardViewController - doGet : " + commentList);
 		
+		req.setAttribute("commentList", commentList);
 		req.setAttribute("board", board);
 		req.setAttribute("boardFile", boardFile);
 		req.setAttribute("recommended", isRecommended);

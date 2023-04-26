@@ -6,6 +6,8 @@
 
 <script type="text/javascript">
 $(function() {
+	
+	
 	$("#result").on("click", ".btnRecommend", function() {
 	 	$.ajax({
 		type: "GET"	//요청 메소드
@@ -16,7 +18,7 @@ $(function() {
 		, dataType: "html"		//응답 데이터 형식
 		, success: function( res ) {
 			console.log("AJAX 성공")
-			console.log(res);
+// 			console.log(res);
 			$("#result").html(res);
 			
 		}
@@ -26,7 +28,40 @@ $(function() {
 		})
 		
 	})
-})
+	
+	
+	$("#cmtBtn").on("click", function() {
+	 	$.ajax({
+			type: "GET"	//요청 메소드
+			, url: "/comment/insert"	//요청 URL
+			, data: {	//요청 파라미터
+				boardno: $("#boardno").html()
+				, content: $("#comment").val()
+			}
+			, dataType: "html"		//응답 데이터 형식
+			, success: function( res ) {
+				console.log("AJAX 성공")
+				console.log(res);
+				$("#commentT").html(res);
+				
+				$("#comment").val("");
+				
+			}
+			, error: function() {
+				console.log("AJAX 실패")
+			}	
+		})
+		
+	}) //댓글 AJAX End
+	
+	$("#comment").keydown(function(e) {
+		if( e.keyCode==13){
+			$("#cmtBtn").trigger("click");
+		}
+	})
+	
+	
+})//제이쿼리 기본태그 End
 </script>
 <style type="text/css">
 table {
@@ -51,8 +86,8 @@ td {
 
 
 <h1>게시글 상세 내용 보기</h1>
-<h1>${recommended }</h1>
 <hr>
+
 
 <table>
 
@@ -90,5 +125,21 @@ td {
 </tr>
 
 </table>
+
+<table>
+
+<tr>
+	<td>아이디 : ${userid }</td>
+	<td><input type="text" name="comment" id="comment"></td>
+	<td><button type="button" id="cmtBtn">입력</button></td>
+</tr>
+</table>
+
+<table id="commentT">
+
+<c:import url="../board/comment.jsp" />
+
+</table>
+
 
 <c:import url="../layout/footer.jsp" />
