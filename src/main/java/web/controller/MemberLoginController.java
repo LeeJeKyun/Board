@@ -45,7 +45,6 @@ public class MemberLoginController extends HttpServlet {
 			Member member = memberService.info(loginMember);
 			session.setAttribute("login", true);
 			session.setAttribute("userid", member.getUserid());
-			session.setAttribute("userpw", member.getUserpw());
 			resp.sendRedirect("/main");
 		} else {	//로그인 실패시
 			resp.sendRedirect("/main");

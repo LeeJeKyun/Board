@@ -471,6 +471,50 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return list;
 	}
+
+	@Override
+	public Map<String, Object> selectBoardJoinUsernick(Connection conn, Board viewBoard) {
+		
+		String sql = "";
+		sql += "SELECT boardno, title, userid, content, hit, write_date";
+		sql += "	, (SELECT usernick FROM member M WHERE M.userid = B.userid) usernick";
+		sql += " FROM board B";
+		sql += " WHERE boardno = ?";
+		Map<String,Object> boardMap = null;
+		Board board = null;
+		String usernick = null;
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, viewBoard.getBoardno());
+			
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				boardMap = new HashMap<>();
+				board = new Board();
+				board.setBoardno(rs.getInt("boardno"));
+				board.setTitle(rs.getString("title"));
+				board.setUserid(rs.getString("userid"));
+				board.setContent(rs.getString("content"));
+				board.setHit(rs.getInt("hit"));
+				board.setWriteDate(rs.getTimestamp("write_date"));
+				usernick = rs.getString("usernick");
+				
+				boardMap.put("board", board);
+				boardMap.put("nick", usernick);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		return boardMap;
+	}
 	
 	
 	

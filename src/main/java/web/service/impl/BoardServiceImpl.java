@@ -550,6 +550,12 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 	}
+
+	@Override
+	public Map<String, Object> viewMap(Board viewBoard) {
+		
+		return boardDao.selectBoardJoinUsernick(conn, viewBoard);
+	}
 	
 	
 	

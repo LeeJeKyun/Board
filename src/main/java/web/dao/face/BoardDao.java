@@ -151,6 +151,16 @@ public interface BoardDao {
 	public List<Map<String, Object>> selectAll(Connection conn, Paging paging);
 
 
+	/**
+	 * 조회할 보드와 usernick을 SELECT하는 메소드
+	 * 
+	 * @param conn
+	 * @param viewBoard
+	 * @return
+	 */
+	public Map<String, Object> selectBoardJoinUsernick(Connection conn, Board viewBoard);
+
+
 
 	
 	

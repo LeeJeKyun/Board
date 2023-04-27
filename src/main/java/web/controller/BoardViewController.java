@@ -2,6 +2,7 @@ package web.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +34,7 @@ public class BoardViewController extends HttpServlet {
 		BoardFile boardFile = boardService.getBoardFile(board);
 		
 		Board recBoard = boardService.getBoard(req);
+		Map<String,Object> viewBoardmap = boardService.viewMap(viewBoard);
 		
 		boolean isRecommended = boardService.isRecommended(recBoard);
 		int recommendCnt = boardService.recommendCnt(recBoard);
@@ -42,7 +44,8 @@ public class BoardViewController extends HttpServlet {
 //		System.out.println("BoardViewController - doGet : " + commentList);
 		
 		req.setAttribute("commentList", commentList);
-		req.setAttribute("board", board);
+		req.setAttribute("board", viewBoardmap.get("board"));
+		req.setAttribute("usernick", viewBoardmap.get("nick"));
 		req.setAttribute("boardFile", boardFile);
 		req.setAttribute("recommended", isRecommended);
 		req.setAttribute("recommendCnt", recommendCnt);

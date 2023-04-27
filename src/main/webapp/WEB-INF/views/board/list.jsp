@@ -48,6 +48,10 @@ function listDelete(){
 		}	
 	})
 }
+function selectCancel() {
+	$(".checkes").removeAttr("checked")
+	console.log('selectCancel')
+}
 
 </script>
 
@@ -71,7 +75,7 @@ function listDelete(){
 	</tr>
 	<c:forEach var="map" items="${list }" >
 		<tr>
-			<td><input type="checkbox" name='boardno' value='${map.get("b").getBoardno() }'></td>
+			<td><input type="checkbox" class="checkes" name='boardno' value='${map.get("b").getBoardno() }'></td>
 			<td>${map.get("b").getBoardno()} </td>
 			<td><a href="<%=request.getContextPath()%>/board/view?boardno=${map.get('b').getBoardno() }">${map.get('b').getTitle() }</a></td>
 			<td>${map.get("b").getUserid() } </td>
@@ -81,7 +85,13 @@ function listDelete(){
 		</tr>
 	</c:forEach>
 	<tr>
-		<td style="border: none; text-align: center;"><button>삭제</button></td><td colspan="6" style="border: none;"></td>
+		<td style="border: none; text-align: center;">
+			<button type="button" onclick="selectCancel()" >선택취소</button>
+		</td>
+		<td style="border: none; text-align: center;">
+			<button>삭제</button>
+		</td>
+		<td colspan="5" style="border: none;"></td>
 	</tr>
 </table>
 </form>

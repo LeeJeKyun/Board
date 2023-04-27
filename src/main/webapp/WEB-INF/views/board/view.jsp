@@ -204,7 +204,7 @@ td {
 <tr>
 	<th>글번호 : <span id="boardno">${board.boardno }</span></th>
 	<th>제목 : ${board.title }</th>
-	<th>아이디 : ${board.userid }(닉네임위치)</th>
+	<th>아이디 : ${board.userid }(${usernick })</th>
 	<th>조회수 : ${board.hit }</th>
 </tr>
 

@@ -168,6 +168,14 @@ public interface BoardService {
 	 */
 	public void deleteBoardList(List<Board> deleteList);
 
+	/**
+	 * viewBoard에 있는 정보를 통해 Board테이블과 userid,usernick을 조회해온다
+	 * 
+	 * @param viewBoard
+	 * @return
+	 */
+	public Map<String, Object> viewMap(Board viewBoard);
+
 
 
 }
