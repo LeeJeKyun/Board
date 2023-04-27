@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,10 +29,15 @@ public class BoardRecommendController extends HttpServlet {
 		//추천이 된 상태면 true, 추천이 안 된 상태면 false
 		boolean isRecommended = boardService.recommend(recommendBoard);
 		int recommendCnt = boardService.recommendCnt(recommendBoard);
-		req.setAttribute("recommendCnt", recommendCnt);
-		req.setAttribute("isRecommended", isRecommended);
 		
-		req.getRequestDispatcher("/WEB-INF/views/board/recommend.jsp").forward(req, resp);
+		PrintWriter print = resp.getWriter();
+		
+		print.write("" + recommendCnt);
+		
+//		req.setAttribute("recommendCnt", recommendCnt);
+//		req.setAttribute("isRecommended", isRecommended);
+		
+//		req.getRequestDispatcher("/WEB-INF/views/board/recommend.jsp").forward(req, resp);
 		
 	}
 	

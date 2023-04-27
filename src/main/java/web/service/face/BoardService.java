@@ -153,6 +153,21 @@ public interface BoardService {
 	 */
 	public void commentDelete(HttpServletRequest req);
 
+	/**
+	 * boardno을 가진 Board객체의 list를 반환하는 메소드
+	 * 
+	 * @param boardnoArr
+	 * @return
+	 */
+	public List<Board> getDeleteList(String[] boardnoArr);
+
+	/**
+	 * 받아온 Board List의 데이터를 모두 지우는 메소드
+	 * 
+	 * @param deleteList
+	 */
+	public void deleteBoardList(List<Board> deleteList);
+
 
 
 }

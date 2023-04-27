@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -423,6 +424,10 @@ public class BoardServiceImpl implements BoardService {
 	public Paging getPaging(HttpServletRequest req) {
 		
 		String param = req.getParameter("curPage");
+		String keyword = req.getParameter("search");
+		if(keyword == null) {
+			keyword = "";
+		}
 		int curPage = 0;
 		if( param != null && !"".equals(param)) {
 			curPage = Integer.parseInt(param);
@@ -430,14 +435,22 @@ public class BoardServiceImpl implements BoardService {
 			System.out.println("[WARN] BoardService - getPaging() : curPage값이 null이거나 비어있음");
 		}
 		
-		int totalCount = boardDao.selectCntAll( conn );
-		Paging paging = new Paging(totalCount, curPage, 10, 5);
+		//search파라미터가 비어있을경우와 아닌경우 나누기
+		
+		Paging paging = null;
+		
+		//비어있을경우 : selectCntAll, Paging그대로진행하기
+		int totalCount = boardDao.selectCntAll( conn , keyword );
+		paging = new Paging(totalCount, curPage, 10, 5);
+//		System.out.println("BoardService getPaging() - : " + totalCount);
+		paging.setSearch(keyword);
 		
 		return paging;
 	}
 
 	@Override
 	public List<Map<String, Object>> getList(Paging paging) {
+		
 		
 		return boardDao.selectAll(conn, paging);
 	}
@@ -493,6 +506,47 @@ public class BoardServiceImpl implements BoardService {
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
+		}
+		
+	}
+
+	@Override
+	public List<Board> getDeleteList(String[] boardnoArr) {
+		
+		List<Board> deleteList = new ArrayList<>();
+		for(String str : boardnoArr) {
+			
+			Board board = new Board();
+			board.setBoardno(Integer.parseInt(str));
+			
+			deleteList.add(board);
+		}
+		
+		return deleteList;
+	}
+
+	@Override
+	public void deleteBoardList(List<Board> deleteList) {
+		
+		Iterator<Board> iter = deleteList.iterator();
+		
+		while(iter.hasNext()) {
+			Board board = (Board)iter.next();
+			
+			int res = boardDao.delete(conn, board);
+			if(res > 0 ) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+
+			int res1 = commentDao.deleteCommentByBoardno(conn, board);
+			if(res1 > 0 ) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+			
 		}
 		
 	}

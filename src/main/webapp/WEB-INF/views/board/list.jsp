@@ -25,9 +25,30 @@ td {
 <script type="text/javascript">
 $(function() {
 	$("#goBack").on("click", function() {
-		history.go(-1);
+		location.href="/board/list";
 	})
+	
+	$("#search").focus();
 })
+
+function listDelete(){
+ 	$.ajax({
+		type: "GET"	//요청 메소드
+		, url: "/board/listDelete"	//요청 URL
+		, data: {	//요청 파라미터
+			boardno: $(".boardno").val()
+		}
+		, dataType: "html"		//응답 데이터 형식
+		, success: function( res ) {
+			console.log("AJAX 성공")
+			
+		}
+		, error: function() {
+			console.log("AJAX 실패")
+		}	
+	})
+}
+
 </script>
 
 
@@ -37,8 +58,10 @@ $(function() {
 <div>
 
 
+<form action="/board/listDelete" method="get">
 <table style="margin: 0 auto;">
 	<tr>
+		<th>선택하기</th>
 		<th>게시글 번호</th>
 		<th style="width: 300px;">제목</th>
 		<th>작성자</th>
@@ -46,24 +69,31 @@ $(function() {
 		<th>추천수</th>
 		<th>작성일자</th>
 	</tr>
-	
 	<c:forEach var="map" items="${list }" >
 		<tr>
+			<td><input type="checkbox" name='boardno' value='${map.get("b").getBoardno() }'></td>
 			<td>${map.get("b").getBoardno()} </td>
 			<td><a href="<%=request.getContextPath()%>/board/view?boardno=${map.get('b').getBoardno() }">${map.get('b').getTitle() }</a></td>
-			<td>${map.get("b").getUserid() }</td>
+			<td>${map.get("b").getUserid() } </td>
 			<td>${map.get("b").getHit() }</td>
 			<td>${map.get("c") }</td>
 			<td>${map.get("b").getWriteDate() }</td>
 		</tr>
 	</c:forEach>
-	
+	<tr>
+		<td style="border: none; text-align: center;"><button>삭제</button></td><td colspan="6" style="border: none;"></td>
+	</tr>
 </table>
+</form>
 
 <br>
 
-<div>
-	<a href="./write" style="position:absolute ; left: 47%;"><button>글쓰기</button></a>
+<div style="width: 45%; margin: 0 auto; position: relative;">
+	<form action="/board/list" method="get" style="position: absolute; right: 0px;">
+	<input type="text" id="search" name="search" value="${paging.search }">
+	<button type="submit">검색</button>
+	<a href="./write" ><button type="button">글쓰기</button></a>
+	</form>
 </div>
 
 <br>

@@ -138,7 +138,7 @@ public interface BoardDao {
 	 * @param conn
 	 * @return
 	 */
-	public int selectCntAll(Connection conn);
+	public int selectCntAll(Connection conn, String keyword);
 
 
 	/**
@@ -149,6 +149,8 @@ public interface BoardDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> selectAll(Connection conn, Paging paging);
+
+
 
 	
 	

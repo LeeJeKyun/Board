@@ -15,6 +15,8 @@ public class Paging {
 	private int startNo;
 	private int endNo;
 	
+	private String search;
+	
 	public Paging() {}
 	
 	public Paging( int totalCount, int curPage) {
@@ -54,13 +56,12 @@ public class Paging {
 		endNo = curPage * listCount;
 		
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + "]";
 	}
 
 	public int getCurPage() {
@@ -133,6 +134,14 @@ public class Paging {
 
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	
 	

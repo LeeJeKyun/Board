@@ -25,14 +25,19 @@ public class BoardListController extends HttpServlet {
 		
 		Paging paging = boardService.getPaging(req);
 		
+		System.out.println("BoardListController - doGet() : " + req.getParameter("search"));
+		
 		req.setAttribute("paging", paging);
+		
+//		System.out.println("ListController - doGet() : " + paging);
 		
 		//서비스 -> Dao를 통해서 db데이터 받아오기
 //		List<Map<String, Object>> list = boardService.getList();
 		
+			
 		List<Map<String, Object>> list = boardService.getList(paging);
 		
-//		System.out.println("BoardListController - doGet() : List =" + list);
+		System.out.println("BoardListController - doGet() : List =" + list);
 		
 		req.setAttribute("list", list);
 		

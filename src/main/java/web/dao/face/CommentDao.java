@@ -41,4 +41,13 @@ public interface CommentDao {
 	 */
 	public int deleteComment(Connection conn, Comment comment);
 
+	/**
+	 * 전달받은 boardno객체로 DB의 댓글을 delete하는 메소드
+	 * 
+	 * @param conn
+	 * @param board
+	 * @return
+	 */
+	public int deleteCommentByBoardno(Connection conn, Board board);
+
 }

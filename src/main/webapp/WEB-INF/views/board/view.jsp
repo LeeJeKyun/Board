@@ -7,23 +7,49 @@
 <script type="text/javascript">
 $(function() {
 	
-	$("#result").on("click", ".btnRecommend", function() {
-	 	$.ajax({
-		type: "GET"	//요청 메소드
-		, url: "/board/recommend"	//요청 URL
-		, data: {	//요청 파라미터
-			boardno: $("#boardno").html()
-		}
-		, dataType: "html"		//응답 데이터 형식
-		, success: function( res ) {
-// 			console.log("AJAX 성공")
-// 			console.log(res);
-			$("#result").html(res);
+// 	$("#result").on("click", ".btnRecommend", function() {
+// 	 	$.ajax({
+// 		type: "GET"	//요청 메소드
+// 		, url: "/board/recommend"	//요청 URL
+// 		, data: {	//요청 파라미터
+// 			boardno: $("#boardno").html()
+// 		}
+// 		, dataType: "html"		//응답 데이터 형식
+// 		, success: function( res ) {
+// // 			console.log("AJAX 성공")
+// // 			console.log(res);
+// 			$("#result").html(res);
 			
-		}
-		, error: function() {
-			console.log("AJAX 실패")
-		}
+// 		}
+// 		, error: function() {
+// 			console.log("AJAX 실패")
+// 		}
+// 		})
+		
+// 	})
+	
+	$(".btnRecommend").click(function() {
+	 	$.ajax({
+			type: "GET"	//요청 메소드
+			, url: "/board/recommend"	//요청 URL
+			, data: {	//요청 파라미터
+				boardno: $("#boardno").html()
+			}
+			, dataType: "html"		//응답 데이터 형식
+			, success: function( res ) {
+	 			console.log("AJAX 성공")
+	 			console.log(res);
+				$("#result").html(res);
+				if($(".btnRecommend").html() == '추천' ){
+					$(".btnRecommend").html('추천 취소')
+				} else if ($(".btnRecommend").html() == '추천 취소'){
+					$(".btnRecommend").html('추천')
+				}
+				
+			}
+			, error: function() {
+				console.log("AJAX 실패")
+			}
 		})
 		
 	})
@@ -200,9 +226,23 @@ td {
 		</c:if>
 	</td>
 	<td>
-	<span id="result">
-		추천수 : [현재추천수]=${recommendCnt } <c:if test="${recommended eq false }"><button class="btnRecommend">추천 취소</button></c:if>
-			<c:if test="${recommended eq true }"><button class="btnRecommend">추천</button></c:if>
+<!-- 	<span id="result"> -->
+<%-- 		추천수 : [현재추천수]=${recommendCnt } --%>
+<%-- 		 <c:if test="${recommended eq false }"> --%>
+<!-- 		 <button class="btnRecommend">추천 취소</button> -->
+<%-- 		 </c:if> --%>
+<%-- 		 <c:if test="${recommended eq true }"> --%>
+<!-- 		 <button class="btnRecommend">추천</button> -->
+<%-- 		 </c:if> --%>
+<!-- 	</span> -->
+		<span>
+		추천수 : [현재추천수]=<span  id="result">${recommendCnt }</span>
+		 <c:if test="${recommended eq false }">
+		 <button class="btnRecommend">추천 취소</button>
+		 </c:if>
+		 <c:if test="${recommended eq true }">
+		 <button class="btnRecommend">추천</button>
+		 </c:if>
 	</span>
 	</td>
 	<td>작성일 : ${board.writeDate }</td>

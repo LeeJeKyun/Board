@@ -389,15 +389,17 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int selectCntAll(Connection conn) {
+	public int selectCntAll(Connection conn, String keyword) {
 		
 		String sql = "";
 		sql += "SELECT count(*) FROM board";
+		sql += " WHERE title LIKE ?";
 		
 		int res = 0;
 		
 		try {
 			ps=conn.prepareStatement(sql);
+			ps.setString(1, "%"+keyword+"%");
 			
 			rs=ps.executeQuery();
 			while( rs.next() ) {
@@ -423,7 +425,7 @@ public class BoardDaoImpl implements BoardDao {
 		sql += " boardno, title, userid, content, hit, write_date ";
 		sql += " , (SELECT COUNT(*) FROM recommend R WHERE R.boardno=B.boardno)";
 		sql += " AS recommend";
-		sql += " FROM board B";
+		sql += " FROM board B WHERE title LIKE ?";
 		sql += " ORDER BY boardno DESC ) S";
 		sql += " )Board";
 		sql += " WHERE rnum BETWEEN ? AND ?";
@@ -434,8 +436,9 @@ public class BoardDaoImpl implements BoardDao {
 		try {
 			ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, paging.getStartNo());
-			ps.setInt(2, paging.getEndNo());
+			ps.setString(1, "%"+paging.getSearch()+"%");
+			ps.setInt(2, paging.getStartNo());
+			ps.setInt(3, paging.getEndNo());
 			
 			rs = ps.executeQuery();
 			
