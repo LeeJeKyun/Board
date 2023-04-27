@@ -33,4 +33,12 @@ public interface CommentDao {
 	 */
 	public int insertComment(Connection conn, Comment insertComment);
 
+	/**
+	 * 전달받은 comment객체를 기준으로 DB의 정보를 delete하는 메소드
+	 * 
+	 * @param conn
+	 * @param comment
+	 */
+	public int deleteComment(Connection conn, Comment comment);
+
 }

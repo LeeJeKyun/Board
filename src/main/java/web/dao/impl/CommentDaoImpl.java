@@ -108,6 +108,30 @@ public class CommentDaoImpl implements CommentDao {
 		return res;
 	}
 
-	
+	@Override
+	public int deleteComment(Connection conn, Comment comment) {
+
+		String sql = "";
+		sql += "DELETE commenttb";
+		sql += " WHERE commentno = ?";
+		int res = 0;
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, comment.getCommentno());
+			
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return res;
+		
+	}
+
 	
 }

@@ -146,6 +146,13 @@ public interface BoardService {
 	 */
 	public void commentInsert(Comment insertComment);
 
+	/**
+	 * req에 있는 commentno을 기준으로 DB의 코멘트를 삭제하는 메소드
+	 * 
+	 * @param req
+	 */
+	public void commentDelete(HttpServletRequest req);
+
 
 
 }

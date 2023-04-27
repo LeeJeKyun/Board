@@ -7,7 +7,6 @@
 <script type="text/javascript">
 $(function() {
 	
-	
 	$("#result").on("click", ".btnRecommend", function() {
 	 	$.ajax({
 		type: "GET"	//요청 메소드
@@ -17,14 +16,14 @@ $(function() {
 		}
 		, dataType: "html"		//응답 데이터 형식
 		, success: function( res ) {
-			console.log("AJAX 성공")
+// 			console.log("AJAX 성공")
 // 			console.log(res);
 			$("#result").html(res);
 			
 		}
 		, error: function() {
 			console.log("AJAX 실패")
-		}	
+		}
 		})
 		
 	})
@@ -60,8 +59,93 @@ $(function() {
 		}
 	})
 	
+// 	$("#commentT").on("click", ".cmtDelBtn", function() {
+// 		console.log($(this).parents("tr").find(".commentno").html())
+// 	})
+	
+	//-------------------노드연관성활용방법----------------------
+// 	$("#commentT").on("click", ".cmtDelBtn", function() {
+		
+// 		$.ajax({
+// 			type: "GET"	//요청 메소드
+// 			, url: "/comment/delete"	//요청 URL
+// 			, data: {	//요청 파라미터
+// 				commentno: $(this).parents("tr").find(".commentno").html()
+// 				, boardno: $("#boardno").html()
+
+// 			}
+// 			, dataType: "html"		//응답 데이터 형식
+// 			, success: function( res ) {
+// 				console.log("AJAX 성공")
+// 				console.log(res);
+// 				$("#commentT").html(res);
+				
+				
+// 			}
+// 			, error: function() {
+// 				console.log("AJAX 실패")
+// 			}	
+// 		})
+		
+// 	})
+		
+	//-------------------사용자정의속성 활용법----------------------
+// 	$("#commentT").on("click", ".cmtDelBtn", function() {
+		
+// 		$.ajax({
+// 			type: "GET"	//요청 메소드
+// 			, url: "/comment/delete"	//요청 URL
+// 			, data: {	//요청 파라미터
+// 				commentno: $(this).attr("data-commentno")
+// 				, boardno: $("#boardno").html()
+
+// 			}
+// 			, dataType: "html"		//응답 데이터 형식
+// 			, success: function( res ) {
+// 				console.log("AJAX 성공")
+// 				console.log(res);
+// 				$("#commentT").html(res);
+				
+				
+// 			}
+// 			, error: function() {
+// 				console.log("AJAX 실패")
+// 			}	
+// 		})
+		
+// 	})
+
+	
 	
 })//제이쿼리 기본태그 End
+
+//-------------------------------onclick의 선언함수 활용법(매개변수로 받아오기)------------------------------
+
+function del( cno ) {
+// 		console.log(cno);
+
+			$.ajax({
+			type: "GET"	//요청 메소드
+			, url: "/comment/delete"	//요청 URL
+			, data: {	//요청 파라미터
+				commentno: cno
+				, boardno: $("#boardno").html()
+
+			}
+			, dataType: "html"		//응답 데이터 형식
+			, success: function( res ) {
+				console.log("AJAX 성공")
+				console.log(res);
+				$("#commentT").html(res);
+				
+				
+			}
+			, error: function() {
+				console.log("AJAX 실패")
+			}
+		})
+
+}
 </script>
 <style type="text/css">
 table {

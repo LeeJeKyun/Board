@@ -480,6 +480,22 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 	}
+
+	@Override
+	public void commentDelete(HttpServletRequest req) {
+		
+		Comment comment = new Comment();
+		comment.setCommentno(Integer.parseInt( req.getParameter("commentno")));
+		
+		int res = commentDao.deleteComment(conn, comment);
+		
+		if( res > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+	}
 	
 	
 	
