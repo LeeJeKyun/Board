@@ -52,6 +52,9 @@ function selectCancel() {
 	$(".checkes").removeAttr("checked")
 	console.log('selectCancel')
 }
+function init() {
+	$("#search").val("")
+}
 
 </script>
 
@@ -75,7 +78,7 @@ function selectCancel() {
 	</tr>
 	<c:forEach var="map" items="${list }" >
 		<tr>
-			<td><input type="checkbox" class="checkes" name='boardno' value='${map.get("b").getBoardno() }'></td>
+			<td><c:if test='${userid eq map.get("b").getUserid() }'><input type="checkbox" class="checkes" name='boardno' value='${map.get("b").getBoardno() }'></c:if></td>
 			<td>${map.get("b").getBoardno()} </td>
 			<td><a href="<%=request.getContextPath()%>/board/view?boardno=${map.get('b').getBoardno() }">${map.get('b').getTitle() }</a></td>
 			<td>${map.get("b").getUserid() } </td>
@@ -102,6 +105,7 @@ function selectCancel() {
 	<form action="/board/list" method="get" style="position: absolute; right: 0px;">
 	<input type="text" id="search" name="search" value="${paging.search }">
 	<button type="submit">검색</button>
+	<button type="button" id="initBtn" onclick="init()">초기화</button>
 	<a href="./write" ><button type="button">글쓰기</button></a>
 	</form>
 </div>
