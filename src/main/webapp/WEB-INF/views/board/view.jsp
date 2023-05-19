@@ -251,7 +251,6 @@ td {
 </table>
 
 <table>
-
 <tr>
 	<td>아이디 : ${userid }</td>
 	<td><input type="text" name="comment" id="comment"></td>
